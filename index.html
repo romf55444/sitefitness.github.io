@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitaForce Fitness</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Общие стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Шапка */
+        header {
+            background-color: #fff;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+        
+        .logo i {
+            margin-right: 8px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            padding: 5px 0;
+        }
+        
+        nav ul li a:hover, nav ul li a.active {
+            color: #2e7d32;
+            border-bottom: 2px solid #2e7d32;
+        }
+        
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #2e7d32;
+        }
+        
+        /* Герой */
+        .hero {
+            background: #2e7d32;
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: white;
+            color: #2e7d32;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            border: 2px solid white;
+        }
+        
+        .btn:hover {
+            background: transparent;
+            color: white;
+        }
+        
+        /* Основное содержание */
+        main {
+            padding: 50px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-title h2 {
+            font-size: 32px;
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+        
+        /* Расписание */
+        .schedule-container {
+            overflow-x: auto;
+            margin-bottom: 50px;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #2e7d32;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .class-type {
+            font-weight: bold;
+            color: #2e7d32;
+        }
+        
+        /* Тренеры */
+        .trainers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .trainer-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .trainer-img {
+            height: 200px;
+            background: #e8f5e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2e7d32;
+            font-size: 60px;
+        }
+        
+        .trainer-info {
+            padding: 20px;
+        }
+        
+        .trainer-info h3 {
+            margin-bottom: 8px;
+            color: #2e7d32;
+        }
+        
+        .trainer-specialty {
+            color: #666;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        /* Абонементы */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-top: 4px solid #2e7d32;
+        }
+        
+        .pricing-card.popular {
+            transform: scale(1.05);
+            border-top: 4px solid #ff9800;
+        }
+        
+        .pricing-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #2e7d32;
+        }
+        
+        .price {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2e7d32;
+            margin-bottom: 20px;
+        }
+        
+        .price span {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        
+        .pricing-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .pricing-features li i {
+            margin-right: 10px;
+            color: #4caf50;
+        }
+        
+        /* Контакты и форма */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: #2e7d32;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        
+        .contact-text h3 {
+            margin-bottom: 5px;
+        }
+        
+        .contact-form {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #2e7d32;
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        /* Подвал */
+        footer {
+            background: #2e7d32;
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .footer-about p {
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links h3, .footer-social h3 {
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links ul li a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.9;
+        }
+        
+        .footer-links ul li a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+        
+        .social-icons a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0.8;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 0 0 15px 0;
+            }
+            
+            .menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-card.popular {
+                transform: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                padding: 40px 0;
+            }
+            
+            .section-title h2 {
+                font-size: 26px;
+            }
+            
+            .trainers-grid, .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>VitaForce
+            </div>
+            
+            <button class="menu-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="#home" class="active">Главная</a></li>
+                    <li><a href="#schedule">Расписание</a></li>
+                    <li><a href="#trainers">Тренеры</a></li>
+                    <li><a href="#pricing">Абонементы</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Главная -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Добро пожаловать в VitaForce Fitness</h1>
+            <p>Профессиональный фитнес-клуб с современным оборудованием и опытными тренерами. Достигайте своих целей вместе с нами!</p>
+            <a href="#pricing" class="btn">Выбрать абонемент</a>
+        </div>
+    </section>
+
+    <main class="container">
+        <!-- Расписание -->
+        <section id="schedule">
+            <div class="section-title">
+                <h2>Расписание занятий</h2>
+                <p>Актуальное расписание на неделю. Записывайтесь заранее.</p>
+            </div>
+            
+            <div class="schedule-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Время</th>
+                            <th>Пн</th>
+                            <th>Вт</th>
+                            <th>Ср</th>
+                            <th>Чт</th>
+                            <th>Пт</th>
+                            <th>Сб</th>
+                            <th>Вс</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>07:00</td>
+                            <td><span class="class-type">Йога</span><br>Анна</td>
+                            <td><span class="class-type">Кардио</span><br>Максим</td>
+                            <td><span class="class-type">Силовая</span><br>Дмитрий</td>
+                            <td><span class="class-type">Пилатес</span><br>Ольга</td>
+                            <td><span class="class-type">Кроссфит</span><br>Иван</td>
+                            <td><span class="class-type">Йога</span><br>Анна</td>
+                            <td><span class="class-type">Стретчинг</span><br>Екатерина</td>
+                        </tr>
+                        <tr>
+                            <td>09:00</td>
+                            <td><span class="class-type">Пилатес</span><br>Ольга</td>
+                            <td><span class="class-type">Кроссфит</span><br>Иван</td>
+                            <td><span class="class-type">Кардио</span><br>Максим</td>
+                            <td><span class="class-type">Силовая</span><br>Дмитрий</td>
+                            <td><span class="class-type">Йога</span><br>Анна</td>
+                            <td><span class="class-type">Кроссфит</span><br>Иван</td>
+                            <td><span class="class-type">Кардио</span><br>Максим</td>
+                        </tr>
+                        <tr>
+                            <td>12:00</td>
+                            <td><span class="class-type">Силовая</span><br>Дмитрий</td>
+                            <td><span class="class-type">Йога</span><br>Анна</td>
+                            <td><span class="class-type">Кроссфит</span><br>Иван</td>
+                            <td><span class="class-type">Кардио</span><br>Максим</td>
+                            <td><span class="class-type">Пилатес</span><br>Ольга</td>
+                            <td><span class="class-type">Силовая</span><br>Дмитрий</td>
+                            <td><span class="class-type">Йога</span><br>Анна</td>
+                        </tr>
+                        <tr>
+                            <td>18:00</td>
+                            <td><span class="class-type">Кроссфит</span><br>Иван</td>
+                            <td><span class="class-type">Силовая</span><br>Дмитрий</td>
+                            <td><span class="class-type">Йога</span><br>Анна</td>
+                            <td><span class="class-type">Кроссфит</span><br>Иван</td>
+                            <td><span class="class-type">Кардио</span><br>Максим</td>
+                            <td><span class="class-type">Пилатес</span><br>Ольга</td>
+                            <td><span class="class-type">Кроссфит</span><br>Иван</td>
+                        </tr>
+                        <tr>
+                            <td>20:00</td>
+                            <td><span class="class-type">Кардио</span><br>Максим</td>
+                            <td><span class="class-type">Пилатес</span><br>Ольга</td>
+                            <td><span class="class-type">Стретчинг</span><br>Екатерина</td>
+                            <td><span class="class-type">Йога</span><br>Анна</td>
+                            <td><span class="class-type">Силовая</span><br>Дмитрий</td>
+                            <td><span class="class-type">Кардио</span><br>Максим</td>
+                            <td><span class="class-type">Пилатес</span><br>Ольга</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Тренеры -->
+        <section id="trainers">
+            <div class="section-title">
+                <h2>Наши тренеры</h2>
+                <p>Профессиональные тренеры с большим опытом работы</p>
+            </div>
+            
+            <div class="trainers-grid">
+                <div class="trainer-card">
+                    <div class="trainer-img">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <div class="trainer-info">
+                        <h3>Иван Михайлов</h3>
+                        <span class="trainer-specialty">Кроссфит, функциональный тренинг</span>
+                        <p>Опыт: 8 лет. Мастер спорта по тяжелой атлетике.</p>
+                    </div>
+                </div>
+                
+                <div class="trainer-card">
+                    <div class="trainer-img">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <div class="trainer-info">
+                        <h3>Анна Семенова</h3>
+                        <span class="trainer-specialty">Йога, пилатес, стретчинг</span>
+                        <p>Опыт: 10 лет. Сертифицированный инструктор.</p>
+                    </div>
+                </div>
+                
+                <div class="trainer-card">
+                    <div class="trainer-img">
+                        <i class="fas fa-running"></i>
+                    </div>
+                    <div class="trainer-info">
+                        <h3>Дмитрий Петров</h3>
+                        <span class="trainer-specialty">Силовые тренировки, бодибилдинг</span>
+                        <p>Опыт: 12 лет. Чемпион региона по бодибилдингу.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Абонементы -->
+        <section id="pricing">
+            <div class="section-title">
+                <h2>Абонементы</h2>
+                <p>Выберите подходящий вариант</p>
+            </div>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Базовый</h3>
+                    <div class="price">2000 <span>руб/мес</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Дневное посещение (до 17:00)</li>
+                        <li><i class="fas fa-check"></i> 2 групповых занятия в неделю</li>
+                        <li><i class="fas fa-check"></i> Фитнес-тестирование</li>
+                        <li><i class="fas fa-times"></i> Персональные тренировки</li>
+                    </ul>
+                    <a href="#contact" class="btn">Выбрать</a>
+                </div>
+                
+                <div class="pricing-card popular">
+                    <h3>Стандарт</h3>
+                    <div class="price">3500 <span>руб/мес</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Неограниченное посещение</li>
+                        <li><i class="fas fa-check"></i> 5 групповых занятий в неделю</li>
+                        <li><i class="fas fa-check"></i> Фитнес-тестирование</li>
+                        <li><i class="fas fa-check"></i> 1 персональная тренировка</li>
+                    </ul>
+                    <a href="#contact" class="btn">Выбрать</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Премиум</h3>
+                    <div class="price">5000 <span>руб/мес</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Посещение 24/7</li>
+                        <li><i class="fas fa-check"></i> Все групповые занятия</li>
+                        <li><i class="fas fa-check"></i> Расширенное тестирование</li>
+                        <li><i class="fas fa-check"></i> 4 персональные тренировки</li>
+                    </ul>
+                    <a href="#contact" class="btn">Выбрать</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Контакты -->
+        <section id="contact">
+            <div class="section-title">
+                <h2>Контакты</h2>
+                <p>Свяжитесь с нами для записи</p>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Адрес</h3>
+                            <p>г. Москва, ул. Зеленая, д. 25</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Телефон</h3>
+                            <p>+7 (495) 222-33-44</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Режим работы</h3>
+                            <p>Пн-Пт: 06:00 - 23:00<br>Сб-Вс: 08:00 - 22:00</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Email</h3>
+                            <p>info@vitaforce.ru</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Оставить заявку</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Ваше имя</label>
+                            <input type="text" id="name" class="form-control" placeholder="Имя" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Телефон</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="+7 (XXX) XXX-XX-XX" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" placeholder="email@example.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="abonement">Абонемент</label>
+                            <select id="abonement" class="form-control">
+                                <option value="basic">Базовый</option>
+                                <option value="standard" selected>Стандарт</option>
+                                <option value="premium">Премиум</option>
+                                <option value="notsure">Не определился</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Сообщение</label>
+                            <textarea id="message" class="form-control" placeholder="Ваш вопрос или комментарий"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn form-btn">Отправить заявку</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Подвал -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">VitaForce Fitness</div>
+                    <p>Профессиональный фитнес-клуб с современным оборудованием и опытными тренерами.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Меню</h3>
+                    <ul>
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#schedule">Расписание</a></li>
+                        <li><a href="#trainers">Тренеры</a></li>
+                        <li><a href="#pricing">Абонементы</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-social">
+                    <h3>Мы в соцсетях</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 VitaForce Fitness. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Мобильное меню
+        const menuBtn = document.getElementById('menuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        menuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+        
+        // Закрытие меню при клике на ссылку
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+        
+        // Плавная прокрутка
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Активное меню при прокрутке
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('nav a');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (window.scrollY >= sectionTop) {
+                    currentSection = '#' + section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Обработка формы
+        const contactForm = document.getElementById('contactForm');
+        
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const abonement = document.getElementById('abonement').options[document.getElementById('abonement').selectedIndex].text;
+            
+            alert(`Спасибо, ${name}! Ваша заявка на абонемент "${abonement}" принята. Мы свяжемся с вами по номеру ${phone} в ближайшее время.`);
+            contactForm.reset();
+            document.getElementById('abonement').value = 'standard';
+        });
+    </script>
+</body>
+</html>
